@@ -54,11 +54,11 @@ const EventCalendarScreen = () => {
                         {sunTimes && (
                             <View style={{ alignItems: 'center', marginBottom: 20 }}>
                                 <View style={{ alignItems: 'center', marginBottom: 10 }}>
-                                    <Image source={require('../assets/icons/sunrise.png')} style={{ width: 60, height: 60 }} />
+                                    <Image source={require('../assets/icons/sunrise.png')} style={{ width: 200, height: 200 }} />
                                     <Text style={globalStyles.text}>Sunrise: {sunTimes.sunrise}</Text>
                                 </View>
                                 <View style={{ alignItems: 'center' }}>
-                                    <Image source={require('../assets/icons/sunset.png')} style={{ width: 60, height: 60 }} />
+                                    <Image source={require('../assets/icons/sunset.png')} style={{ width: 200, height: 200 }} />
                                     <Text style={globalStyles.text}>Sunset: {sunTimes.sunset}</Text>
                                 </View>
                             </View>
