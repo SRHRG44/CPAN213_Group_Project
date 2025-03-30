@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, ImageBackground } from 'react-native';
+import { View, Text, ScrollView, ImageBackground } from 'react-native';
 import { useRoute } from '@react-navigation/native';
-import { globalStyles } from '../shared/globalStyles'; // Import global styles
+import { globalStyles } from '../shared/globalStyles';
 
 const DetailsScreen = () => {
   const route = useRoute();
@@ -9,7 +9,7 @@ const DetailsScreen = () => {
 
   if (!item) {
     return (
-      <ImageBackground source={require('../assets/space_background.jpg')} style={globalStyles.backgroundImage}>
+      <ImageBackground source={require('../assets/galaxie.jpg')} style={globalStyles.backgroundImage}>
         <View style={globalStyles.container}>
           <Text style={[globalStyles.text, { color: 'red' }]}>No details available.</Text>
         </View>
@@ -18,8 +18,8 @@ const DetailsScreen = () => {
   }
 
   return (
-    <ImageBackground source={require('../assets/space_background.jpg')} style={globalStyles.backgroundImage}>
-      <ScrollView style={{ flex: 1 }}>
+    <ImageBackground source={require('../assets/galaxie.jpg')} style={globalStyles.backgroundImage}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={globalStyles.container}>
           <Text style={[globalStyles.text, globalStyles.header]}>{item.title || item.name}</Text>
           {item.description && <Text style={[globalStyles.text, { marginBottom: 15 }]}>{item.description}</Text>}

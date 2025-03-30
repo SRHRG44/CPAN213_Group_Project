@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { View, Text, ActivityIndicator, ImageBackground } from 'react-native';
+import { View, Text, ActivityIndicator, ImageBackground, ScrollView } from 'react-native';
 import { globalStyles } from '../shared/globalStyles';
 
 const RocketDataScreen = () => {
@@ -60,7 +60,8 @@ const RocketDataScreen = () => {
 
   return (
     <ImageBackground source={require('../assets/rocket.jpg')} style={globalStyles.backgroundImage}>
-        <View style={globalStyles.container}>
+         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+         <View style={globalStyles.container}>
             {loading ? (
                 <ActivityIndicator size="large" color="white" />
             ) : (
@@ -87,8 +88,9 @@ const RocketDataScreen = () => {
                     ))}
                 </>
             )}
-        </View>
-    </ImageBackground>
+       </View>
+            </ScrollView>
+        </ImageBackground>
 );
 };
 

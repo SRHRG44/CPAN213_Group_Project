@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { View, Text, ActivityIndicator, Image, ImageBackground } from 'react-native';
+import { View, Text, ActivityIndicator, Image, ImageBackground, ScrollView } from 'react-native';
 import { globalStyles } from '../shared/globalStyles';
 
 const EventCalendarScreen = () => {
@@ -45,35 +45,37 @@ const EventCalendarScreen = () => {
 
   return (
     <ImageBackground source={require('../assets/night-moon-galaxy-space.jpg')} style={globalStyles.backgroundImage}>
-      <View style={globalStyles.container}>
-        {loading ? (
-          <ActivityIndicator size="large" color="white" />
-        ) : (
-          <>
-            {sunTimes && (
-              <View style={{ alignItems: 'center' }}>
-                <View style={{ alignItems: 'center' }}>
-                  <Image source={require('../assets/icons/sunrise.png')} style={{ width: 60, height: 60 }} />
-                  <Text style={globalStyles.text}>Sunrise: {sunTimes.sunrise}</Text>
-                </View>
-                <View style={{ alignItems: 'center' }}>
-                  <Image source={require('../assets/icons/sunset.png')} style={{ width: 60, height: 60 }} />
-                  <Text style={globalStyles.text}>Sunset: {sunTimes.sunset}</Text>
-                </View>
-              </View>
-            )}
-            <Text style={[globalStyles.text, globalStyles.header]}>Space Events:</Text>
-            {spaceEvents.map((event, index) => (
-              <View key={index} style={globalStyles.item}>
-                <Text style={globalStyles.text}>{event.name}</Text>
-                <Text style={globalStyles.text}>{event.description}</Text>
-              </View>
-            ))}
-          </>
-        )}
-      </View>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+            <View style={globalStyles.container}>
+                {loading ? (
+                    <ActivityIndicator size="large" color="white" />
+                ) : (
+                    <>
+                        {sunTimes && (
+                            <View style={{ alignItems: 'center', marginBottom: 20 }}>
+                                <View style={{ alignItems: 'center', marginBottom: 10 }}>
+                                    <Image source={require('../assets/icons/sunrise.png')} style={{ width: 60, height: 60 }} />
+                                    <Text style={globalStyles.text}>Sunrise: {sunTimes.sunrise}</Text>
+                                </View>
+                                <View style={{ alignItems: 'center' }}>
+                                    <Image source={require('../assets/icons/sunset.png')} style={{ width: 60, height: 60 }} />
+                                    <Text style={globalStyles.text}>Sunset: {sunTimes.sunset}</Text>
+                                </View>
+                            </View>
+                        )}
+                        <Text style={[globalStyles.text, globalStyles.header]}>Space Events:</Text>
+                        {spaceEvents.map((event, index) => (
+                            <View key={index} style={globalStyles.item}>
+                                <Text style={globalStyles.text}>{event.name}</Text>
+                                <Text style={globalStyles.text}>{event.description}</Text>
+                            </View>
+                        ))}
+                    </>
+                )}
+            </View>
+        </ScrollView>
     </ImageBackground>
-  );
+);
 };
 
 export default EventCalendarScreen;

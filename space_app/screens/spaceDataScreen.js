@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, ActivityIndicator, ImageBackground } from 'react-native';
+import { View, Text, FlatList, ActivityIndicator, ImageBackground, ScrollView } from 'react-native';
 import { globalStyles } from '../shared/globalStyles';
 
 const SpaceDataScreen = () => {
@@ -45,6 +45,7 @@ const SpaceDataScreen = () => {
 
   return (
     <ImageBackground source={require('../assets/space2.jpg')} style={globalStyles.backgroundImage}>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={globalStyles.container}>
             {loading ? (
                 <ActivityIndicator size="large" color="white" />
@@ -75,6 +76,7 @@ const SpaceDataScreen = () => {
                 </>
             )}
         </View>
+        </ScrollView>
     </ImageBackground>
 );
 };
