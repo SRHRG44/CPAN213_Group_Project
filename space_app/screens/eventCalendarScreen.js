@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from "react";
-import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
+import { View, Text, ActivityIndicator, StyleSheet, Image } from "react-native";
 
 const EventCalendarScreen = () => {
   const [sunTimes, setSunTimes] = useState(null);
@@ -49,9 +49,15 @@ const EventCalendarScreen = () => {
       ) : (
         <>
           {sunTimes && (
-            <View>
-              <Text>Sunrise: {sunTimes.sunrise}</Text>
-              <Text>Sunset: {sunTimes.sunset}</Text>
+            <View style={styles.sunTimesContainer}>
+              <View style={styles.sunTimeItem}>
+                <Image source={require('../assets/icons/sunrise.png')} style={styles.icon} />
+                <Text>Sunrise: {sunTimes.sunrise}</Text>
+              </View>
+              <View style={styles.sunTimeItem}>
+                <Image source={require('../assets/icons/sunset.png')} style={styles.icon} />
+                <Text>Sunset: {sunTimes.sunset}</Text>
+              </View>
             </View>
           )}
           <Text>Space Events:</Text>
@@ -71,6 +77,20 @@ const styles = StyleSheet.create({
   container: { flex: 1, padding: 20, backgroundColor: "#333" },
   header: { fontSize: 20, fontWeight: "bold", color: "#fff", marginBottom: 10 },
   item: { color: "#ddd", padding: 5, borderBottomWidth: 1, borderBottomColor: "#666" },
+  sunTimesContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 10,
+  },
+  sunTimeItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  icon: {
+    width: 30, // Adjust the size as needed
+    height: 30, // Adjust the size as needed
+    marginRight: 5,
+  },
 });
 
 export default EventCalendarScreen;
