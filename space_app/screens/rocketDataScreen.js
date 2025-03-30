@@ -1,6 +1,7 @@
 
-import React, { useEffect, useState } from "react";
-import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
+import React, { useEffect, useState } from 'react';
+import { View, Text, ActivityIndicator, ImageBackground } from 'react-native';
+import { globalStyles } from '../shared/globalStyles';
 
 const RocketDataScreen = () => {
   const [latestLaunch, setLatestLaunch] = useState(null);
@@ -58,41 +59,37 @@ const RocketDataScreen = () => {
   }, []);
 
   return (
-    <View>
-      {loading ? (
-        <ActivityIndicator size="large" />
-      ) : (
-        <>
-          {latestLaunch && (
-            <View>
-              <Text>Mission: {latestLaunch.name}</Text>
-              <Text>Date: {latestLaunch.date_utc}</Text>
-              <Text>Success: {latestLaunch.success ? "Yes" : "No"}</Text>
-            </View>
-          )}
-          {issLocation && (
-            <View>
-              <Text>ISS Location:</Text>
-              <Text>Latitude: {issLocation.latitude}</Text>
-              <Text>Longitude: {issLocation.longitude}</Text>
-            </View>
-          )}
-          <Text>Astronauts in Space:</Text>
-          {astronauts.map((astronaut, index) => (
-            <View key={index}>
-              <Text>{astronaut.name} - {astronaut.craft}</Text>
-            </View>
-          ))}
-        </>
-      )}
-    </View>
-  );
+    <ImageBackground source={require('../assets/rocket.jpg')} style={globalStyles.backgroundImage}>
+        <View style={globalStyles.container}>
+            {loading ? (
+                <ActivityIndicator size="large" color="white" />
+            ) : (
+                <>
+                    {latestLaunch && (
+                        <View style={globalStyles.item}>
+                            <Text style={globalStyles.text}>Mission: {latestLaunch.name}</Text>
+                            <Text style={globalStyles.text}>Date: {latestLaunch.date_utc}</Text>
+                            <Text style={globalStyles.text}>Success: {latestLaunch.success ? 'Yes' : 'No'}</Text>
+                        </View>
+                    )}
+                    {issLocation && (
+                        <View style={globalStyles.item}>
+                            <Text style={[globalStyles.text, globalStyles.header]}>ISS Location:</Text>
+                            <Text style={globalStyles.text}>Latitude: {issLocation.latitude}</Text>
+                            <Text style={globalStyles.text}>Longitude: {issLocation.longitude}</Text>
+                        </View>
+                    )}
+                    <Text style={[globalStyles.text, globalStyles.header]}>Astronauts in Space:</Text>
+                    {astronauts.map((astronaut, index) => (
+                        <View key={index} style={globalStyles.item}>
+                            <Text style={globalStyles.text}>{astronaut.name} - {astronaut.craft}</Text>
+                        </View>
+                    ))}
+                </>
+            )}
+        </View>
+    </ImageBackground>
+);
 };
-
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: "#222" },
-  header: { fontSize: 20, fontWeight: "bold", color: "#fff", marginBottom: 10 },
-  item: { color: "#ddd", padding: 5, borderBottomWidth: 1, borderBottomColor: "#555" },
-});
 
 export default RocketDataScreen;

@@ -1,6 +1,7 @@
 
-import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, ActivityIndicator, StyleSheet } from "react-native";
+import React, { useEffect, useState } from 'react';
+import { View, Text, FlatList, ActivityIndicator, ImageBackground } from 'react-native';
+import { globalStyles } from '../shared/globalStyles';
 
 const SpaceDataScreen = () => {
   const [spaceNews, setSpaceNews] = useState([]);
@@ -43,43 +44,39 @@ const SpaceDataScreen = () => {
   }, []);
 
   return (
-    <View>
-      {loading ? (
-        <ActivityIndicator size="large" />
-      ) : (
-        <>
-          <Text>Space News:</Text>
-          <FlatList
-            data={spaceNews}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => (
-              <View>
-                <Text>{item.title}</Text>
-                <Text>{item.summary}</Text>
-              </View>
+    <ImageBackground source={require('../assets/space2.jpg')} style={globalStyles.backgroundImage}>
+        <View style={globalStyles.container}>
+            {loading ? (
+                <ActivityIndicator size="large" color="white" />
+            ) : (
+                <>
+                    <Text style={[globalStyles.text, globalStyles.header]}>Space News:</Text>
+                    <FlatList
+                        data={spaceNews}
+                        keyExtractor={(item) => item.id.toString()}
+                        renderItem={({ item }) => (
+                            <View style={globalStyles.item}>
+                                <Text style={globalStyles.text}>{item.title}</Text>
+                                <Text style={globalStyles.text}>{item.summary}</Text>
+                            </View>
+                        )}
+                    />
+                    <Text style={[globalStyles.text, globalStyles.header]}>Astronomy Activities:</Text>
+                    <FlatList
+                        data={astronomyData}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={({ item }) => (
+                            <View style={globalStyles.item}>
+                                <Text style={globalStyles.text}>{item.name}</Text>
+                                <Text style={globalStyles.text}>{item.description}</Text>
+                            </View>
+                        )}
+                    />
+                </>
             )}
-          />
-          <Text>Astronomy Activities:</Text>
-          <FlatList
-            data={astronomyData}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
-              <View>
-                <Text>{item.name}</Text>
-                <Text>{item.description}</Text>
-              </View>
-            )}
-          />
-        </>
-      )}
-    </View>
-  );
+        </View>
+    </ImageBackground>
+);
 };
-
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: "#111" },
-  header: { fontSize: 20, fontWeight: "bold", color: "#fff", marginBottom: 10 },
-  item: { color: "#ddd", padding: 5, borderBottomWidth: 1, borderBottomColor: "#333" },
-});
 
 export default SpaceDataScreen;
