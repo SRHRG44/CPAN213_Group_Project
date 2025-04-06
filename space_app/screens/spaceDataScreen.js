@@ -62,46 +62,48 @@ const SpaceDataScreen = () => {
   };
 
   return (
-      <ImageBackground source={require('../assets/space2.jpg')} style={globalStyles.backgroundImage}>
-          <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-              <View style={globalStyles.container}>
-                  {loading ? (
-                      <ActivityIndicator size="large" color="white" />
-                  ) : (
-                      <>
-                          {apodData && (
-                              <View>
-                                  <Text style={[globalStyles.text, globalStyles.header]}>{apodData.title}</Text>
-                                  {apodData.media_type === 'image' && (
-                                      <TouchableOpacity onPress={handleImagePress}>
-                                          <Animated.Image
-                                              source={{ uri: apodData.url }}
-                                              style={{ width: '100%', height: 300, resizeMode: 'contain', opacity: fadeAnim }}
-                                          />
-                                      </TouchableOpacity>
-                                  )}
-                                  <Text style={globalStyles.text}>{apodData.explanation}</Text>
-                                  <Text style={globalStyles.text}>Date: {apodData.date}</Text>
-                              </View>
-                          )}
+    <ImageBackground source={require('../assets/space2.jpg')} style={globalStyles.backgroundImage}>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+            <View style={globalStyles.container}>
+                {loading ? (
+                    <ActivityIndicator size="large" color="white" />
+                ) : (
+                    <>
+                        {apodData && (
+                            <View>
+                                <Text style={[globalStyles.text, globalStyles.header]}>{apodData.title}</Text>
+                                {apodData.media_type === 'image' && (
+                                    <TouchableOpacity onPress={handleImagePress}>
+                                        <Animated.Image
+                                            source={{ uri: apodData.url }}
+                                            style={{ width: '100%', height: 300, resizeMode: 'contain', opacity: fadeAnim }}
+                                        />
+                                    </TouchableOpacity>
+                                )}
+                                <Text style={globalStyles.text}>{apodData.explanation}</Text>
+                                <Text style={globalStyles.text}>Date: {apodData.date}</Text>
+                            </View>
+                        )}
 
-                          <Text style={[globalStyles.text, globalStyles.header]}>Planets:</Text>
-                          <FlatList
-                              data={spaceNews}
-                              keyExtractor={(item) => item.id}
-                              renderItem={({ item }) => (
-                                  <View style={globalStyles.item}>
-                                      <Text style={globalStyles.text}>{item.englishName}</Text>
-                                      <Text style={globalStyles.text}>Mass: {item.mass ? `${item.mass.massValue} x 10^${item.mass.massExponent} kg` : 'N/A'}</Text>
-                                  </View>
-                              )}
-                          />
-                      </>
-                  )}
-              </View>
-          </ScrollView>
-      </ImageBackground>
-  );
+                        <View style={{ height: 1, backgroundColor: 'white', marginVertical: 20 }} />
+
+                        <Text style={[globalStyles.text, globalStyles.header]}>Objects Observed in our Solar System:</Text>
+                        <FlatList
+                            data={spaceNews}
+                            keyExtractor={(item) => item.id}
+                            renderItem={({ item }) => (
+                                <View style={globalStyles.item}>
+                                    <Text style={globalStyles.text}>{item.englishName}</Text>
+                                    <Text style={globalStyles.text}>Mass: {item.mass ? `${item.mass.massValue} x 10^${item.mass.massExponent} kg` : 'N/A'}</Text>
+                                </View>
+                            )}
+                        />
+                    </>
+                )}
+            </View>
+        </ScrollView>
+    </ImageBackground>
+);
 };
 
 export default SpaceDataScreen;
