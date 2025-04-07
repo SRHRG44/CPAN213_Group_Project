@@ -96,7 +96,7 @@ const SpaceDataScreen = () => {
                                     </View>
                                 )}
                                 <View style={{ height: 1, backgroundColor: 'white', marginVertical: 20 }} />
-                                <Text style={[globalStyles.text, globalStyles.header]}>Planets:</Text>
+                                <Text style={[globalStyles.text, globalStyles.header]}>Object Soraing through our Solar System:</Text>
                             </>
                         )}
                         renderItem={({ item }) => (
