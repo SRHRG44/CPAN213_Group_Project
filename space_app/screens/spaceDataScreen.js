@@ -14,7 +14,7 @@ const SpaceDataScreen = () => {
     const fetchApodData = async () => {
       try {
           console.log("Fetching APOD Data...");
-          const url = `https://api.nasa.gov/planetary/apod?api_key=PN3Ocg7wHH9qSt4XPELPVW71Zf524b3NWoLF37oj`;; // Define the 'url' variable
+          const url = `https://api.nasa.gov/planetary/apod?api_key=PN3Ocg7wHH9qSt4XPELPVW71Zf524b3NWoLF37oj`;;
           console.log("Fetching APOD URL:", url);
           const response = await fetch(url);
           console.log("APOD Data Response Status:", response.status);
