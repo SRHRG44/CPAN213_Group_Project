@@ -14,7 +14,7 @@ const EventCalendarScreen = () => {
       const response = await fetch("https://api.sunrisesunset.io/json?lat=38.907192&lng=-77.036873&timezone=UTC&date=today");
       console.log("Sun Times Response Status:", response.status);
       const text = await response.text();
-      console.log("Raw Sun Times Response:", text);
+      // console.log("Raw Sun Times Response:", text);
       setSunTimes(JSON.parse(text).results);
     } catch (error) {
       console.error("Error fetching sun times:", error);
@@ -27,7 +27,7 @@ const EventCalendarScreen = () => {
       const response = await fetch("https://ll.thespacedevs.com/2.2.0/agencies/?limit=10");
       console.log("Space Events Response Status:", response.status);
       const text = await response.text();
-      console.log("Raw Space Events Response:", text);
+      // console.log("Raw Space Events Response:", text);
       setSpaceEvents(JSON.parse(text).results);
     } catch (error) {
       console.error("Error fetching space events:", error);

@@ -15,7 +15,7 @@ const RocketDataScreen = () => {
       const response = await fetch("https://api.spacexdata.com/v5/launches/latest");
       console.log("Latest Launch Response Status:", response.status);
       const text = await response.text();
-      console.log("Raw Latest Launch Response:", text);
+      // console.log("Raw Latest Launch Response:", text);
       setLatestLaunch(JSON.parse(text));
     } catch (error) {
       console.error("Error fetching latest launch:", error);
@@ -28,7 +28,7 @@ const RocketDataScreen = () => {
       const response = await fetch("http://api.open-notify.org/iss-now.json");
       console.log("ISS Location Response Status:", response.status);
       const text = await response.text();
-      console.log("Raw ISS Location Response:", text);
+      // console.log("Raw ISS Location Response:", text);
       setIssLocation(JSON.parse(text).iss_position);
     } catch (error) {
       console.error("Error fetching ISS location:", error);
@@ -41,7 +41,7 @@ const RocketDataScreen = () => {
       const response = await fetch("http://api.open-notify.org/astros.json");
       console.log("Astronauts Response Status:", response.status);
       const text = await response.text();
-      console.log("Raw Astronauts Response:", text);
+      // console.log("Raw Astronauts Response:", text);
       setAstronauts(JSON.parse(text).people);
     } catch (error) {
       console.error("Error fetching astronauts:", error);

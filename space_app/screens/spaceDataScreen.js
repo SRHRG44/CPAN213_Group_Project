@@ -19,7 +19,7 @@ const SpaceDataScreen = () => {
           const response = await fetch(url);
           console.log("APOD Data Response Status:", response.status);
           const data = await response.json();
-          console.log("APOD Data:", data);
+          // console.log("APOD Data:", data);
           setApodData(data);
       } catch (error) {
           console.error("Error fetching APOD data:", error);
