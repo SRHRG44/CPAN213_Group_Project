@@ -1,109 +1,115 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { View, Text, FlatList, ActivityIndicator, ImageBackground, Image, Animated, TouchableOpacity } from 'react-native';
 import { globalStyles } from '../shared/globalStyles';
-import { ScrollView } from 'react-native-gesture-handler';
-
+import NASA_API_KEY from '../config/ApiKey'; // Import your API key from the config file
 
 const SpaceDataScreen = () => {
-  const [spaceNews, setSpaceNews] = useState([]);
-  const [apodData, setApodData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const fadeAnim = useRef(new Animated.Value(0)).current; // Initial opacity 0
+    const [spaceNews, setSpaceNews] = useState([]);
+    const [apodData, setApodData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const fadeAnim = useRef(new Animated.Value(0)).current;
 
-  const NASA_API_KEY = '69p4hnb5q7DjKCUQRE129Ahukdn7IZoj2Ifu67vM';
+    const NASA_API_KEY = 'YOUR_NASA_API_KEY'; // Replace with your actual NASA API key
 
-  const fetchApodData = async () => {
+    const fetchApodData = async () => {
       try {
           console.log("Fetching APOD Data...");
-          const response = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}`);
+          const url = `https://api.nasa.gov/planetary/apod?api_key=PN3Ocg7wHH9qSt4XPELPVW71Zf524b3NWoLF37oj`;; // Define the 'url' variable
+          console.log("Fetching APOD URL:", url);
+          const response = await fetch(url);
           console.log("APOD Data Response Status:", response.status);
-          const text = await response.text();
-          console.log("Raw APOD Data Response:", text);
-          const data = JSON.parse(text);
+          const data = await response.json();
+          console.log("APOD Data:", data);
           setApodData(data);
       } catch (error) {
           console.error("Error fetching APOD data:", error);
-      }
-  };
-
-  const fetchSpaceNews = async () => {
-      try {
-          console.log("Fetching Solar System Data...");
-          const response = await fetch("https://api.le-systeme-solaire.net/rest/bodies/");
-          console.log("Solar System Data Response Status:", response.status);
-          const text = await response.text();
-          console.log("Raw Solar System Data Response:", text);
-          const data = JSON.parse(text);
-          if (data && data.bodies) {
-              setSpaceNews(data.bodies);
-          } else {
-              setSpaceNews([]);
-          }
-      } catch (error) {
-          console.error("Error fetching solar system data:", error);
-      }
-  };
-
-  useEffect(() => {
-      const fetchData = async () => {
-          await fetchApodData();
-          await fetchSpaceNews();
+      } finally {
           setLoading(false);
-      };
-      fetchData();
-  }, []);
-
-  const handleImagePress = () => {
-      Animated.timing(fadeAnim, {
-          toValue: 1, // Fade in
-          duration: 1000, // 1 second
-          useNativeDriver: true,
-      }).start();
+      }
   };
 
-  return (
-    <ImageBackground source={require('../assets/space2.jpg')} style={globalStyles.backgroundImage}>
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+    const fetchSpaceNews = async () => {
+        try {
+            console.log("Fetching Solar System Data...");
+            const response = await fetch("https://api.le-systeme-solaire.net/rest/bodies/");
+            console.log("Solar System Data Response Status:", response.status);
+            const text = await response.text();
+            // console.log("Raw Solar System Data Response:", text);
+            const data = JSON.parse(text);
+            if (data && data.bodies) {
+                setSpaceNews(data.bodies);
+            } else {
+                setSpaceNews([]);
+            }
+        } catch (error) {
+            console.error("Error fetching solar system data:", error);
+        }
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            await fetchApodData();
+            await fetchSpaceNews();
+            setLoading(false);
+        };
+        fetchData();
+    }, []);
+
+    const handleImagePress = () => {
+        Animated.timing(fadeAnim, {
+            toValue: 1,
+            duration: 1000,
+            useNativeDriver: true,
+        }).start();
+    };
+
+    return (
+        <ImageBackground source={require('../assets/space2.jpg')} style={globalStyles.backgroundImage}>
             <View style={globalStyles.container}>
                 {loading ? (
                     <ActivityIndicator size="large" color="white" />
                 ) : (
-                    <>
-                        {apodData && (
-                            <View>
-                                <Text style={[globalStyles.text, globalStyles.header]}>{apodData.title}</Text>
-                                {apodData.media_type === 'image' && (
-                                    <TouchableOpacity onPress={handleImagePress}>
-                                        <Animated.Image
-                                            source={{ uri: apodData.url }}
-                                            style={{ width: '100%', height: 300, resizeMode: 'contain', opacity: fadeAnim }}
-                                        />
-                                    </TouchableOpacity>
+                    <FlatList
+                        data={spaceNews}
+                        keyExtractor={(item) => item.id}
+                        ListHeaderComponent={() => (
+                            <>
+                                {apodData && (
+                                    <View>
+                                        <Text style={[globalStyles.text, globalStyles.header]}>{apodData.title}</Text>
+                                        {apodData.media_type === 'image' && (
+                                            <TouchableOpacity onPress={handleImagePress}>
+                                                <Animated.Image
+                                                    source={{ uri: apodData.url }}
+                                                    style={{ width: '100%', height: 300, resizeMode: 'contain', opacity: fadeAnim }}
+                                                />
+                                            </TouchableOpacity>
+                                        )}
+                                        {apodData.media_type === 'video' && (
+                                            <Text style={globalStyles.text}>Video: {apodData.url}</Text>
+                                        )}
+                                        {apodData.media_type !== 'image' && apodData.media_type !== 'video' && (
+                                            <Text style={globalStyles.text}>Media type not supported</Text>
+                                        )}
+                                        <Text style={globalStyles.text}>{apodData.explanation}</Text>
+                                        <Text style={globalStyles.text}>Date: {apodData.date}</Text>
+                                    </View>
                                 )}
-                                <Text style={globalStyles.text}>{apodData.explanation}</Text>
-                                <Text style={globalStyles.text}>Date: {apodData.date}</Text>
+                                <View style={{ height: 1, backgroundColor: 'white', marginVertical: 20 }} />
+                                <Text style={[globalStyles.text, globalStyles.header]}>Planets:</Text>
+                            </>
+                        )}
+                        renderItem={({ item }) => (
+                            <View style={globalStyles.item}>
+                                <Text style={globalStyles.text}>{item.englishName}</Text>
+                                <Text style={globalStyles.text}>Mass: {item.mass ? `${item.mass.massValue} x 10^${item.mass.massExponent} kg` : 'N/A'}</Text>
                             </View>
                         )}
-
-                        <View style={{ height: 1, backgroundColor: 'white', marginVertical: 20 }} />
-
-                        <Text style={[globalStyles.text, globalStyles.header]}>Objects Observed in our Solar System:</Text>
-                        <FlatList
-                            data={spaceNews}
-                            keyExtractor={(item) => item.id}
-                            renderItem={({ item }) => (
-                                <View style={globalStyles.item}>
-                                    <Text style={globalStyles.text}>{item.englishName}</Text>
-                                    <Text style={globalStyles.text}>Mass: {item.mass ? `${item.mass.massValue} x 10^${item.mass.massExponent} kg` : 'N/A'}</Text>
-                                </View>
-                            )}
-                        />
-                    </>
+                    />
                 )}
             </View>
-        </ScrollView>
-    </ImageBackground>
-);
+        </ImageBackground>
+    );
 };
 
 export default SpaceDataScreen;
