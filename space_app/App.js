@@ -11,7 +11,7 @@ import AppNavigator from './nav/AppNavigator';
 
 
 export default function App() {
-  console.log("Store from App.js:", store); // Add this line
+  console.log("Store from App.js:", store);
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Provider store={store}>
