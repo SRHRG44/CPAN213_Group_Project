@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { View, Text, FlatList, ActivityIndicator, ImageBackground, Image, Animated, TouchableOpacity } from 'react-native';
 import { globalStyles } from '../shared/globalStyles';
-import NASA_API_KEY from '../config/ApiKey'; // Import your API key from the config file
+import NASA_API_KEY from '../config/ApiKey';
 
 const SpaceDataScreen = () => {
     const [spaceNews, setSpaceNews] = useState([]);
@@ -9,7 +9,7 @@ const SpaceDataScreen = () => {
     const [loading, setLoading] = useState(true);
     const fadeAnim = useRef(new Animated.Value(0)).current;
 
-    const NASA_API_KEY = 'YOUR_NASA_API_KEY'; // Replace with your actual NASA API key
+    const NASA_API_KEY = 'YOUR_NASA_API_KEY';
 
     const fetchApodData = async () => {
       try {

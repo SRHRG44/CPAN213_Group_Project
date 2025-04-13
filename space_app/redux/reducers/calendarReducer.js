@@ -16,7 +16,7 @@ const calendarReducer = (state = initialState, action) => {
         return { ...state, sunriseSunset: action.payload, loading: false };
 
       case 'FETCH_SPACE_EVENTS_SUCCESS':
-        return { ...state, spaceEvents: action.payload.results, loading: false }; // Extract results from payload
+        return { ...state, spaceEvents: action.payload.results, loading: false };
 
       case 'FETCH_SUNRISE_SUNSET_FAILURE':
       case 'FETCH_SPACE_EVENTS_FAILURE':

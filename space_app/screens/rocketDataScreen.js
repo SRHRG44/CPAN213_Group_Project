@@ -60,8 +60,8 @@ const RocketDataScreen = () => {
 
   return (
     <ImageBackground source={require('../assets/rocket.jpg')} style={globalStyles.backgroundImage}>
-         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-         <View style={globalStyles.container}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <View style={globalStyles.container}>
             {loading ? (
                 <ActivityIndicator size="large" color="white" />
             ) : (
@@ -88,10 +88,10 @@ const RocketDataScreen = () => {
                     ))}
                 </>
             )}
-       </View>
-            </ScrollView>
-        </ImageBackground>
-);
+        </View>
+      </ScrollView>
+    </ImageBackground>
+  );
 };
 
 export default RocketDataScreen;

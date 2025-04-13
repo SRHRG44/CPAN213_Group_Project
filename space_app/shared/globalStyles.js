@@ -3,11 +3,11 @@ import { StyleSheet } from 'react-native';
 export const globalStyles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
-    resizeMode: 'cover', // or 'stretch'
-    justifyContent: 'center', // Center content vertically
+    resizeMode: 'cover',
+    justifyContent: 'center',
   },
   container: {
-    backgroundColor: 'rgba(128, 0, 128, 0.7)', // Transparent medium dark purple
+    backgroundColor: 'rgba(128, 0, 128, 0.7)',
     padding: 20,
     margin: 10,
     borderRadius: 10,
